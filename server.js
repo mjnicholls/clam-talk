@@ -1,6 +1,7 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
+const serverless = require('serverless-http')
 const socketio = require('socket.io');
 const formatMessage = require('./utils/messages');
 const {
@@ -73,3 +74,7 @@ io.on('connection', socket => {
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+server.use ('/.netlify/functions/api')
+
+module.exports.handler = serverless(app);
